@@ -6,7 +6,7 @@ const getBackendUrl = () => '/api/ai';
 
 /**
  * 核心函数：根据配置生成单个智能体的回复
- * 包含 Gemini, DeepSeek, Qwen 的调用逻辑
+ * 包含 DeepSeek, Qwen 的调用逻辑
  */
 export async function generateAgentResponse(
   config: AgentConfig,
@@ -115,7 +115,7 @@ export async function generateAgentResponse(
 
 /**
  * 辅助函数：安全生成（带降级机制）
- * 如果首选模型失败（如 key 错误），自动降级使用 Gemini
+ * 如果首选模型失败（如 key 错误），自动降级使用 Qwen
  */
 async function safeGenerate(
     config: AgentConfig,
@@ -127,18 +127,18 @@ async function safeGenerate(
     try {
         return await generateAgentResponse(config, stockSymbol, apiKeys, context, stockDataContext);
     } catch (e) {
-        console.warn(`Primary model failed for ${config.title}. Falling back to Gemini.`, e);
+        console.warn(`Primary model failed for ${config.title}. Falling back to Qwen.`, e);
         
-        // 创建临时配置，强制使用 Gemini
+        // 创建临时配置，强制使用 Qwen
         const fallbackConfig: AgentConfig = {
             ...config,
-            modelProvider: ModelProvider.GEMINI,
-            modelName: 'gemini-2.5-flash'
+            modelProvider: ModelProvider.QWEN,
+            modelName: 'qwen-plus'
         };
         
         try {
             const result = await generateAgentResponse(fallbackConfig, stockSymbol, apiKeys, context, stockDataContext);
-            return result + `\n\n*(注: 由于 ${config.modelProvider} 调用失败，本报告由 Gemini 2.5 Flash 应急生成)*`;
+            return result + `\n\n*(注: 由于 ${config.modelProvider} 调用失败，本报告由 Qwen Plus 应急生成)*`;
         } catch (fallbackError) {
              return `分析失败: ${e instanceof Error ? e.message : '未知错误'}`;
         }

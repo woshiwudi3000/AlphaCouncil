@@ -11,8 +11,8 @@ export const DEFAULT_AGENTS: Record<AgentRole, AgentConfig> = {
     icon: "Globe",
     color: "slate",
     temperature: 0.2,
-    modelProvider: ModelProvider.GEMINI,
-    modelName: 'gemini-2.5-flash',
+    modelProvider: ModelProvider.QWEN,
+    modelName: 'qwen-plus',
     systemPrompt: `你是资深A股宏观政策分析师。
 **输出风格**：冷酷、客观、宏观视角。
 **任务**：
@@ -31,8 +31,8 @@ export const DEFAULT_AGENTS: Record<AgentRole, AgentConfig> = {
     icon: "PieChart",
     color: "cyan",
     temperature: 0.3,
-    modelProvider: ModelProvider.GEMINI,
-    modelName: 'gemini-2.5-flash',
+    modelProvider: ModelProvider.QWEN,
+    modelName: 'qwen-plus',
     systemPrompt: `你是A股行业轮动专家。
 **输出风格**：简单直接，突出行业景气与资金偏好。
 **任务**：分析当前市场最强的主线。
@@ -84,8 +84,8 @@ export const DEFAULT_AGENTS: Record<AgentRole, AgentConfig> = {
     icon: "ArrowLeftRight",
     color: "emerald",
     temperature: 0.3,
-    modelProvider: ModelProvider.GEMINI,
-    modelName: 'gemini-2.5-flash',
+    modelProvider: ModelProvider.QWEN,
+    modelName: 'qwen-plus',
     systemPrompt: `你是资金流向分析专家。
 **输出风格**：像一个老庄家，看穿对手盘。
 **任务**：分析盘口买卖单（五档行情），判断主力是在吸筹还是出货。

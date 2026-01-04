@@ -47,12 +47,12 @@ const AgentCard: React.FC<AgentCardProps> = ({ config, content, isLoading, isPen
   const audioContextRef = useRef<AudioContext | null>(null);
   const [chartData, setChartData] = useState<any>(null);
 
-  // 需要强制使用 Google Search 的智能体角色（Gemini）
-  const GEMINI_AGENTS = [AgentRole.MACRO, AgentRole.INDUSTRY, AgentRole.FUNDS];
-  const isGeminiAgent = GEMINI_AGENTS.includes(config.id);
+  // 需要使用 Qwen 的智能体角色
+  const QWEN_AGENTS = [AgentRole.MACRO, AgentRole.INDUSTRY, AgentRole.FUNDS];
+  const isQwenAgent = QWEN_AGENTS.includes(config.id);
   
   // 其他智能体强制使用 DeepSeek
-  const isDeepSeekAgent = !isGeminiAgent;
+  const isDeepSeekAgent = !isQwenAgent;
 
   useEffect(() => {
     if (!audioContextRef.current) {
@@ -217,10 +217,10 @@ const AgentCard: React.FC<AgentCardProps> = ({ config, content, isLoading, isPen
         </div>
         {!isConfigMode && (
           <div className="ml-auto flex flex-col items-end gap-0.5">
-             {isGeminiAgent ? (
-                 <span className="text-[9px] uppercase font-mono px-1.5 py-0.5 rounded bg-blue-500/20 text-blue-300">联网搜索</span>
+             {isQwenAgent ? (
+                 <span className="text-[9px] uppercase font-mono px-1.5 py-0.5 rounded bg-blue-500/20 text-blue-300">Qwen</span>
              ) : (
-                 <span className="text-[9px] uppercase font-mono px-1.5 py-0.5 rounded bg-white/10 opacity-70">逻辑推演</span>
+                 <span className="text-[9px] uppercase font-mono px-1.5 py-0.5 rounded bg-white/10 opacity-70">DeepSeek</span>
              )}
           </div>
         )}
@@ -257,9 +257,9 @@ const AgentCard: React.FC<AgentCardProps> = ({ config, content, isLoading, isPen
            {/* 模型选择 */}
            <div>
              <div className="text-[10px] uppercase text-slate-400 mb-1 ml-0.5">模型 (Model)</div>
-             {isGeminiAgent ? (
+             {isQwenAgent ? (
                  <div className="w-full bg-slate-900/50 text-xs text-slate-400 border border-white/5 rounded px-2 py-1.5 cursor-not-allowed italic flex items-center justify-between">
-                    <span>Gemini 2.5 Flash</span>
+                    <span>Qwen Plus</span>
                     <span className="text-[9px] bg-blue-500/20 text-blue-300 px-1 rounded">AUTO</span>
                  </div>
              ) : isDeepSeekAgent ? (
